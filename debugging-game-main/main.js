@@ -31,13 +31,14 @@ function agujeroRandom(holes) {
 
 // Hace que un nuevo bug salte desde un agujero
 function saltar() {
-  const time = tiempoRandom(500, 3000);
+  const time = tiempoRandom(500, 1000);
   const hole = agujeroRandom(holes);
 
   // 2. Agregar la clase 'up' al elemento 'hole' para que el bug aparezca
+  hole.classList.add('up')
   setTimeout(() => {
     // 3. Eliminar la clase 'up' para que el bug desaparezca
-
+    hole.classList.remove('up')
     // Hace que un nuevo bug salte desde un agujero si el tiempo no ha terminado
     if (!timeUp) saltar();
   }, time)
@@ -53,6 +54,7 @@ function golpear(event) {
 }
 
 function iniciarJuego() {
+  score = 0
   scoreBoard.textContent = 0;
   timeUp = false;
 
@@ -63,5 +65,6 @@ function iniciarJuego() {
 
 
 // 4. Agregar el evento 'click' al todos los elementos 'bug'
-
+bugs.forEach(bug => bug.addEventListener('click', golpear))
 // 5. Hacer un bind del evento click del boton iniciar juego
+document.getElementById('start').addEventListener("click", iniciarJuego);
